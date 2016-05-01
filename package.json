@@ -15,7 +15,7 @@
     "mining"
   ],
   "dependencies": {
-    "request": "~2.71.0",
+    "request": "~2.71.0"
   },
   "license": "GPL-3.0",
   "maintainers": [
