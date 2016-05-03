@@ -44,3 +44,14 @@ exports.getDepositAddress = function(userId,depositType,callback){
     }
   });
 }
+
+exports.getUserID = function(email,password,callback){
+  request(urlApi+'email='+email+'&password='+password+'&json=true', function (error, response, json) {
+    if (!error && response.statusCode == 200) {
+      var myJson = JSON.parse(json);
+      callback(true,myJson);
+    } else {
+      callback(false,"");
+    }
+  });
+}
