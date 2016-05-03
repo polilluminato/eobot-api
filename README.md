@@ -12,6 +12,8 @@ Currently I implement these APIs
 - Get Balances
 - Get Mining Mode
 - Get Speed
+- Get Deposit Address
+- Get UserID
 
 ## License
 
