@@ -55,3 +55,18 @@ exports.getUserID = function(email,password,callback){
     }
   });
 }
+
+exports.setMiningMode = function(userId,email,password,miningMode,callback){
+  var options = 'id='+userId;
+    options += '&email='+email;
+    options += '&password='+password;
+    options += '&mining='+miningMode;
+
+  request(urlApi+options+'&json=true', function (error, response, json) {
+    if (!error && response.statusCode == 200) {
+      callback(true);
+    } else {
+      callback(false);
+    }
+  });
+}
