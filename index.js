@@ -10,7 +10,7 @@ exports.getBalances = function(userId,callback){
       callback(false,"");
     }
   });
-}
+};
 
 exports.getMiningMode = function(userId,callback){
   request(urlApi+'idmining='+userId+'&json=true', function (error, response, json) {
@@ -21,7 +21,7 @@ exports.getMiningMode = function(userId,callback){
       callback(false,"");
     }
   });
-}
+};
 
 exports.getSpeed = function(userId,callback){
   request(urlApi+'idspeed='+userId+'&json=true', function (error, response, json) {
@@ -32,7 +32,7 @@ exports.getSpeed = function(userId,callback){
       callback(false,"");
     }
   });
-}
+};
 
 exports.getDepositAddress = function(userId,depositType,callback){
   request(urlApi+'id='+userId+'&deposit='+depositType+'&json=true', function (error, response, json) {
@@ -43,7 +43,7 @@ exports.getDepositAddress = function(userId,depositType,callback){
       callback(false,"");
     }
   });
-}
+};
 
 exports.getUserID = function(email,password,callback){
   request(urlApi+'email='+email+'&password='+password+'&json=true', function (error, response, json) {
@@ -54,7 +54,7 @@ exports.getUserID = function(email,password,callback){
       callback(false,"");
     }
   });
-}
+};
 
 exports.setMiningMode = function(userId,email,password,miningMode,callback){
   var options = 'id='+userId;
@@ -69,4 +69,20 @@ exports.setMiningMode = function(userId,email,password,miningMode,callback){
       callback(false);
     }
   });
-}
+};
+
+exports.exchangeEstimate = function(hasExchangeFee,currencyFrom,amount,currencyTo,callback){
+  var options = 'exchangefee='+hasExchangeFee;
+    options += '&convertfrom='+currencyFrom;
+    options += '&amount='+amount;
+    options += '&convertto='+currencyTo;
+
+  request(urlApi+options+'&json=true', function (error, response, json) {
+    if (!error && response.statusCode == 200) {
+      var myJson = JSON.parse(json);
+      callback(true,myJson);
+    } else {
+      callback(false,"");
+    }
+  });
+};
