@@ -14,6 +14,14 @@ Currently I implement these APIs
 - Get Speed
 - Get Deposit Address
 - Get UserID
+- Set Mining Mode
+
+To-Do
+
+- Set Automatic Withdraw
+- Manual Withdraw
+- Buy Cloud with Cryptocurrency
+- Exchange Estimate
 
 ## License
 
