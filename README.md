@@ -15,13 +15,13 @@ Currently I implement these APIs
 - Get Deposit Address
 - Get UserID
 - Set Mining Mode
+- Exchange Estimate
 
 To-Do
 
 - Set Automatic Withdraw
 - Manual Withdraw
 - Buy Cloud with Cryptocurrency
-- Exchange Estimate
 
 ## License
 
