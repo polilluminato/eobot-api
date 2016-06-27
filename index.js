@@ -86,3 +86,21 @@ exports.exchangeEstimate = function(hasExchangeFee,currencyFrom,amount,currencyT
     }
   });
 };
+
+exports.buyCloudWithCryptocurrency = function(myUserID,myEmail,myPassword,currencyFrom,amount,cloudType,callback){
+  var options = 'id='+myUserID;
+    options += '&email='+myEmail;
+    options += '&password='+myPassword;
+    options += '&convertfrom='+currencyFrom;
+    options += '&amount='+amount;
+    options += '&convertto='+cloudType;
+
+  request(urlApi+options+'&json=true', function (error, response, json) {
+    if (!error && response.statusCode == 200) {
+      var myJson = JSON.parse(json);
+      callback(true,myJson);
+    } else {
+      callback(false,"");
+    }
+  });
+};
