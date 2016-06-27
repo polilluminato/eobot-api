@@ -16,12 +16,12 @@ Currently I implement these APIs
 - Get UserID
 - Set Mining Mode
 - Exchange Estimate
+- Buy Cloud with Cryptocurrency
 
 To-Do
 
 - Set Automatic Withdraw
 - Manual Withdraw
-- Buy Cloud with Cryptocurrency
 
 ## License
 
