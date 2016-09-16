@@ -7,7 +7,7 @@ The API that Eobot.com expose are listed in this page: [Eobot Developers](https:
 
 ## API Implmentation
 
-Currently I implement these APIs
+I implement all the APIs listed in the developers page:
 
 - Get Balances
 - Get Mining Mode
@@ -18,10 +18,8 @@ Currently I implement these APIs
 - Exchange Estimate
 - Buy Cloud with Cryptocurrency
 - Set Automatic Withdraw
-
-To-Do
-
 - Manual Withdraw
+
 
 ## License
 
