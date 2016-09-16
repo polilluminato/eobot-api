@@ -5,11 +5,44 @@
 This node module provides a Node.js implementation for the API of the Cloud mining and Bitcoin mining [Eobot.com](https://www.eobot.com/)   
 > Eobot is the easiest, cheapest, and best way to get or mine Bitcoin, Litecoin, BlackCoin, Namecoin, Dogecoin, Dash, Reddcoin, BitShares, CureCoin, StorjcoinX, Monero, Voxels, Lumens, Bytecoin, Peercoin, NXT, MaidSafeCoin, Ethereum, and Factom. Whether or not you use our Cloud Mining or your own hardware, you can mine any cryptocurrency, regardless if it is based on a SHA-256 or Scrypt algorithm.
 
-The API that Eobot.com expose are listed in this page: [Eobot Developers](https://www.eobot.com/developers).
+The API that Eobot expose are listed in this page: [Eobot Developers](https://www.eobot.com/developers).
 
 ## API Implmentation
 
-I implement all the APIs listed in the developers page:
+I implement all the APIs listed in the developers page. Every API uses as input all the parameters required by Eobot, in the same order as described in the developers page, and a callback function for the returned values. As example a simple call to get balances could be
+```javascript
+var eobot = require('eobot-api');
+var myUserID = '12345'
+eobot.getBalances(myUserID,function(resp,data){
+  if(resp){
+    console.log('\nTotals: ' + JSON.stringify(data));
+  } else {
+    console.log('\nError');
+  }
+});
+```
+All the callbacks have got this structure
+```javascript
+/*
+* @return {Boolean} response: result of the call.
+* @return {String} json: data returned from Eobot API in JSON format, if the response is false json is an empty string
+*/
+callback(response,json);
+```
+Based on the example above, the response for the get balance is
+```
+{
+  "Total":"6.10402110",
+  "BTC":"0.00000000",
+  "ETH":"0.00000000",
+  ...
+  "GHS":"0.00000000",
+  "GHS2":"0.00000000",
+  "SCRYPT":"0.00000000",
+  "BPPD":"0.00000000",
+  "PPD":"0.00000000"
+}
+```
 
 #### Get Balances
 Returns total account value followed by cryptocurrency balances. Pass in querystring UserID.
