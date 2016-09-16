@@ -17,10 +17,10 @@ Currently I implement these APIs
 - Set Mining Mode
 - Exchange Estimate
 - Buy Cloud with Cryptocurrency
+- Set Automatic Withdraw
 
 To-Do
 
-- Set Automatic Withdraw
 - Manual Withdraw
 
 ## License
