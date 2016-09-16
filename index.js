@@ -71,11 +71,31 @@ exports.setMiningMode = function(userId,email,password,miningMode,callback){
   });
 };
 
-exports.exchangeEstimate = function(hasExchangeFee,currencyFrom,amount,currencyTo,callback){
-  var options = 'exchangefee='+hasExchangeFee;
-    options += '&convertfrom='+currencyFrom;
+exports.setAutomaticWithdraw = function(myUserID,myEmail,myPassword,currency,amount,walletAddress,callback){
+  var options = 'id='+myUserID;
+    options += '&email='+myEmail;
+    options += '&password='+myPassword;
+    options += '&withdraw='+currency;
     options += '&amount='+amount;
-    options += '&convertto='+currencyTo;
+    options += '&wallet='+cloudwalletAddressType;
+
+  request(urlApi+options+'&json=true', function (error, response, json) {
+    if (!error && response.statusCode == 200) {
+      var myJson = JSON.parse(json);
+      callback(true,myJson);
+    } else {
+      callback(false,"");
+    }
+  });
+};
+
+exports.manualWithdraw = function(myUserID,myEmail,myPassword,currency,amount,walletAddress,callback){
+  var options = 'id='+myUserID;
+    options += '&email='+myEmail;
+    options += '&password='+myPassword;
+    options += '&manualwithdraw='+currency;
+    options += '&amount='+amount;
+    options += '&wallet='+cloudwalletAddressType;
 
   request(urlApi+options+'&json=true', function (error, response, json) {
     if (!error && response.statusCode == 200) {
@@ -105,31 +125,11 @@ exports.buyCloudWithCryptocurrency = function(myUserID,myEmail,myPassword,curren
   });
 };
 
-exports.setAutomaticWithdraw = function(myUserID,myEmail,myPassword,currency,amount,walletAddress,callback){
-  var options = 'id='+myUserID;
-    options += '&email='+myEmail;
-    options += '&password='+myPassword;
-    options += '&withdraw='+currency;
+exports.exchangeEstimate = function(hasExchangeFee,currencyFrom,amount,currencyTo,callback){
+  var options = 'exchangefee='+hasExchangeFee;
+    options += '&convertfrom='+currencyFrom;
     options += '&amount='+amount;
-    options += '&wallet='+cloudwalletAddressType;
-
-  request(urlApi+options+'&json=true', function (error, response, json) {
-    if (!error && response.statusCode == 200) {
-      var myJson = JSON.parse(json);
-      callback(true,myJson);
-    } else {
-      callback(false,"");
-    }
-  });
-};
-
-exports.manualWithdraw = function(myUserID,myEmail,myPassword,currency,amount,walletAddress,callback){
-  var options = 'id='+myUserID;
-    options += '&email='+myEmail;
-    options += '&password='+myPassword;
-    options += '&manualwithdraw='+currency;
-    options += '&amount='+amount;
-    options += '&wallet='+cloudwalletAddressType;
+    options += '&convertto='+currencyTo;
 
   request(urlApi+options+'&json=true', function (error, response, json) {
     if (!error && response.statusCode == 200) {
