@@ -21,7 +21,7 @@ eobot.getBalances(myUserID,function(resp,data){
   }
 });
 ```
-All the callbacks have got this structure
+All callbacks have got this structure
 ```javascript
 /*
 * @return {Boolean} response: result of the call.
