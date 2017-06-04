@@ -77,7 +77,7 @@ exports.setAutomaticWithdraw = function(myUserID,myEmail,myPassword,currency,amo
     options += '&password='+myPassword;
     options += '&withdraw='+currency;
     options += '&amount='+amount;
-    options += '&wallet='+cloudwalletAddressType;
+    options += '&wallet='+walletAddress;
 
   request(urlApi+options+'&json=true', function (error, response, json) {
     if (!error && response.statusCode == 200) {
@@ -95,7 +95,7 @@ exports.manualWithdraw = function(myUserID,myEmail,myPassword,currency,amount,wa
     options += '&password='+myPassword;
     options += '&manualwithdraw='+currency;
     options += '&amount='+amount;
-    options += '&wallet='+cloudwalletAddressType;
+    options += '&wallet='+walletAddress;
 
   request(urlApi+options+'&json=true', function (error, response, json) {
     if (!error && response.statusCode == 200) {
