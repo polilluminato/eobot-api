@@ -7,7 +7,7 @@ This node module provides a Node.js implementation for the API of the Cloud mini
 
 The API that Eobot expose are listed in this page: [Eobot Developers](https://www.eobot.com/developers).
 
-## API Implmentation
+## API Implementation
 
 I implement all the APIs listed in the developers page. Every API uses as input all the parameters required by Eobot, in the same order as described in the developers page, and a callback function for the returned values. As example a simple call to get balances could be
 ```javascript
