@@ -1,4 +1,4 @@
-# eobot-api
+# Eobot-api - a Node.js module for Eobot public API
 
 ![Eobot API](https://www.eobot.com/eobotlogo.png "Eobot.com")
 
