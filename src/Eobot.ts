@@ -1,22 +1,7 @@
 import axios from 'axios';
+import objectToUrlGet from './lib/objectToUrlGet';
 
-const objectToUrlGet = (data) => {
-  const arrayData:string[] = [];
-
-  const objectData = {
-    ...{ json: true },
-    ...data
-  };
-
-  for(let i in objectData) {
-    const strItemData = `${i}=${objectData[i]}`;
-    arrayData.push(strItemData);
-  }
-
-  const stringData = arrayData.join('&');
-
-  return stringData;
-}
+import { ParamsInterface } from './interfaces';
 
 class Eobot {
   urlApi: string;
@@ -25,7 +10,8 @@ class Eobot {
     this.urlApi = 'https://www.eobot.com/api.aspx?';
   }
 
-  async request(data) {
+
+  async request(data:ParamsInterface) {
     const stringData = objectToUrlGet(data);
     const requestUrl = this.urlApi + stringData;
 
@@ -33,39 +19,39 @@ class Eobot {
     .then(res => res.data)
   }
 
-  async getBalances(userId) {
+  async getBalances(userId:number) {
     return await this.request({
-      total: userId
+      total: Math.round(userId)
     });
   }
 
-  async getMiningMode(userId) {
+  async getMiningMode(userId:number) {
     return await this.request({
       idmining: userId
     });
   };
   
-  async getSpeed(userId) {
+  async getSpeed(userId:number) {
     return await this.request({
       idspeed: userId
     });
   };
   
-  async getDepositAddress(userId,depositType) {
+  async getDepositAddress(userId:number, depositType:string) {
     return await this.request({
       id: userId,
       deposit: depositType
     });
   };
   
-  async getUserID(email,password) {
+  async getUserID(email:string, password:string) {
     return await this.request({
       email,
       password,
     });
   };
   
-  async setMiningMode(userId,email,password,miningMode) {
+  async setMiningMode(userId:number, email:string, password:string, miningMode:string) {
     return await this.request({
       id: userId,
       mining: miningMode,
@@ -74,7 +60,7 @@ class Eobot {
     });
   };
   
-  async setAutomaticWithdraw(myUserID,myEmail,myPassword,currency,amount,walletAddress) {
+  async setAutomaticWithdraw(myUserID:number, myEmail:string, myPassword:string, currency:string, amount:number, walletAddress:string) {
     return await this.request({
       id: myUserID,
       email: myEmail,
@@ -85,7 +71,8 @@ class Eobot {
     });
   };
   
-  async manualWithdraw(myUserID,myEmail,myPassword,currency,amount,walletAddress) {
+  async manualWithdraw(myUserID:number, myEmail:string, myPassword:string, currency:string, amount:number, walletAddress:string) {
+    // manualwithdraw=BTC&amount=1&wallet=163fJyirjtxP585bukr73F1yDi2fYuCcDr
     return await this.request({
       id: myUserID,
       email: myEmail,
@@ -96,7 +83,7 @@ class Eobot {
     });
   };
   
-  async buyCloudWithCryptocurrency(myUserID,myEmail,myPassword,currencyFrom,amount,cloudType) {
+  async buyCloudWithCryptocurrency(myUserID:number, myEmail:string, myPassword:string, currencyFrom:string, amount:number, cloudType:string) {
     return await this.request({
       id: myUserID,
       email: myEmail,
@@ -107,7 +94,7 @@ class Eobot {
     });
   };
   
-  async exchangeEstimate(hasExchangeFee,currencyFrom,amount,currencyTo) {
+  async exchangeEstimate(hasExchangeFee:boolean, currencyFrom:string, amount:number, currencyTo:string) {
     return await this.request({
       exchangefee: hasExchangeFee,
       convertfrom: currencyFrom,
