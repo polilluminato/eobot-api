@@ -12,7 +12,11 @@
     "mining"
   ],
   "dependencies": {
-    "request": "~2.71.0",
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.21",
+    "@types/node-fetch": "^2.1.4",
     "typescript": "^3.3.1"
   },
   "license": "GPL-3.0",
