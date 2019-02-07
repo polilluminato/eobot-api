@@ -1,10 +1,14 @@
+// Promise based HTTP client for the browser and node.js
 import axios from 'axios';
 
+// Send error if any prop is undefined
 import requiredProps from './lib/requiredProps';
+// Convert {foo: 'bar', what: 'ever'} to foo=bar&what=ever
 import objectToUrlGet from './lib/objectToUrlGet';
 
 import { ObjectAny, AccountInterface } from './interfaces';
 class Eobot {
+  // Api url
   public urlApi:string = 'https://www.eobot.com/api.aspx?';
 
   private account:AccountInterface = {
@@ -14,33 +18,41 @@ class Eobot {
   };
 
   constructor(userAccount?:AccountInterface) {
+    // Verify that the user wants to set up an account
     if (userAccount) {
+      // He wants ^^
       this.setAccount(userAccount);
     }
   }
 
   setAccount(userAccount:AccountInterface) {
+    // Verify that the 'id' property exists
     if (userAccount.userId) {
       this.account.userId = userAccount.userId;
     }
-
-    const emailRE = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    // Verify that the 'email' property exists
     if (userAccount.email) {
+      // Email validation
+      const emailRE = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (emailRE.test(userAccount.email)) {
+        // oh yeah
         this.account.email = userAccount.email;
       } else {
+        // invalid email
         console.error(`Invalid Email: "${userAccount.email}".`);
       }
     }
 
+    // Verify that the 'password' property exists
     if (userAccount.password) {
       this.account.password = userAccount.password;
     }
-
   }
 
   async request(data:ObjectAny) {
+    // Convert { userId: 123, email: 'foo@bar' } to 'userId=123&email=foo@bar'
     const stringData = objectToUrlGet(data);
+    // Merge the api url with params
     const requestUrl = this.urlApi + stringData;
 
     return await axios.get(requestUrl)
@@ -93,10 +105,10 @@ class Eobot {
     requiredProps(this, ['email', 'password', 'userId']);
 
     return await this.request({
+      mining: miningMode,
       email: this.account.email,
       password: this.account.password,
       id: this.account.userId,
-      mining: miningMode,
     });
   }
 
@@ -149,4 +161,5 @@ class Eobot {
 
 }
 
+// Hello World :D
 export = Eobot;
