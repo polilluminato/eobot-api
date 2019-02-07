@@ -1,4 +1,23 @@
-var request = require('request');
+import axios from 'axios';
+
+const objectToUrlGet = (data) => {
+  const arrayData:string[] = [];
+
+  const objectData = {
+    ...{ json: true },
+    ...data
+  };
+
+  for(let i in objectData) {
+    const strItemData = `${i}=${objectData[i]}`;
+    arrayData.push(strItemData);
+  }
+
+  const stringData = arrayData.join('&');
+
+  return stringData;
+}
+
 class Eobot {
   urlApi: string;
 
@@ -6,143 +25,94 @@ class Eobot {
     this.urlApi = 'https://www.eobot.com/api.aspx?';
   }
 
-  getBalances(userId, callback) {
-    request(this.urlApi+'total='+userId+'&json=true', function (error, response, json) {
-      if (!error && response.statusCode == 200) {
-        var myJson = JSON.parse(json);
-        callback(true,myJson);
-      } else {
-        callback(false,"");
-      }
+  async request(data) {
+    const stringData = objectToUrlGet(data);
+    const requestUrl = this.urlApi + stringData;
+
+    return await axios.get(requestUrl)
+    .then(res => res.data)
+  }
+
+  async getBalances(userId) {
+    return await this.request({
+      total: userId
     });
   }
 
-  getMiningMode(userId,callback) {
-    request(this.urlApi+'idmining='+userId+'&json=true', function (error, response, json) {
-      if (!error && response.statusCode == 200) {
-        var myJson = JSON.parse(json);
-        callback(true,myJson);
-      } else {
-        callback(false,"");
-      }
+  async getMiningMode(userId) {
+    return await this.request({
+      idmining: userId
     });
   };
   
-  getSpeed(userId,callback) {
-    request(this.urlApi+'idspeed='+userId+'&json=true', function (error, response, json) {
-      if (!error && response.statusCode == 200) {
-        var myJson = JSON.parse(json);
-        callback(true,myJson);
-      } else {
-        callback(false,"");
-      }
+  async getSpeed(userId) {
+    return await this.request({
+      idspeed: userId
     });
   };
   
-  getDepositAddress(userId,depositType,callback) {
-    request(this.urlApi+'id='+userId+'&deposit='+depositType+'&json=true', function (error, response, json) {
-      if (!error && response.statusCode == 200) {
-        var myJson = JSON.parse(json);
-        callback(true,myJson);
-      } else {
-        callback(false,"");
-      }
+  async getDepositAddress(userId,depositType) {
+    return await this.request({
+      id: userId,
+      deposit: depositType
     });
   };
   
-  getUserID(email,password,callback) {
-    request(this.urlApi+'email='+email+'&password='+password+'&json=true', function (error, response, json) {
-      if (!error && response.statusCode == 200) {
-        var myJson = JSON.parse(json);
-        callback(true,myJson);
-      } else {
-        callback(false,"");
-      }
+  async getUserID(email,password) {
+    return await this.request({
+      email,
+      password,
     });
   };
   
-  setMiningMode(userId,email,password,miningMode,callback) {
-    var options = 'id='+userId;
-      options += '&email='+email;
-      options += '&password='+password;
-      options += '&mining='+miningMode;
-  
-    request(this.urlApi+options+'&json=true', function (error, response, json) {
-      if (!error && response.statusCode == 200) {
-        callback(true);
-      } else {
-        callback(false);
-      }
+  async setMiningMode(userId,email,password,miningMode) {
+    return await this.request({
+      id: userId,
+      mining: miningMode,
+      email,
+      password,
     });
   };
   
-  setAutomaticWithdraw(myUserID,myEmail,myPassword,currency,amount,walletAddress,callback) {
-    var options = 'id='+myUserID;
-      options += '&email='+myEmail;
-      options += '&password='+myPassword;
-      options += '&withdraw='+currency;
-      options += '&amount='+amount;
-      options += '&wallet='+walletAddress;
-  
-    request(this.urlApi+options+'&json=true', function (error, response, json) {
-      if (!error && response.statusCode == 200) {
-        var myJson = JSON.parse(json);
-        callback(true,myJson);
-      } else {
-        callback(false,"");
-      }
+  async setAutomaticWithdraw(myUserID,myEmail,myPassword,currency,amount,walletAddress) {
+    return await this.request({
+      id: myUserID,
+      email: myEmail,
+      password: myPassword,
+      withdraw: currency,
+      amount: amount,
+      wallet: walletAddress
     });
   };
   
-  manualWithdraw(myUserID,myEmail,myPassword,currency,amount,walletAddress,callback) {
-    var options = 'id='+myUserID;
-      options += '&email='+myEmail;
-      options += '&password='+myPassword;
-      options += '&manualwithdraw='+currency;
-      options += '&amount='+amount;
-      options += '&wallet='+walletAddress;
-  
-    request(this.urlApi+options+'&json=true', function (error, response, json) {
-      if (!error && response.statusCode == 200) {
-        var myJson = JSON.parse(json);
-        callback(true,myJson);
-      } else {
-        callback(false,"");
-      }
+  async manualWithdraw(myUserID,myEmail,myPassword,currency,amount,walletAddress) {
+    return await this.request({
+      id: myUserID,
+      email: myEmail,
+      password: myPassword,
+      manualwithdraw: currency,
+      amount: amount,
+      wallet: walletAddress
     });
   };
   
-  buyCloudWithCryptocurrency(myUserID,myEmail,myPassword,currencyFrom,amount,cloudType,callback) {
-    var options = 'id='+myUserID;
-      options += '&email='+myEmail;
-      options += '&password='+myPassword;
-      options += '&convertfrom='+currencyFrom;
-      options += '&amount='+amount;
-      options += '&convertto='+cloudType;
-  
-    request(this.urlApi+options+'&json=true', function (error, response, json) {
-      if (!error && response.statusCode == 200) {
-        var myJson = JSON.parse(json);
-        callback(true,myJson);
-      } else {
-        callback(false,"");
-      }
+  async buyCloudWithCryptocurrency(myUserID,myEmail,myPassword,currencyFrom,amount,cloudType) {
+    return await this.request({
+      id: myUserID,
+      email: myEmail,
+      password: myPassword,
+      convertfrom: currencyFrom,
+      amount: amount,
+      convertto: cloudType
     });
   };
   
-  exchangeEstimate(hasExchangeFee,currencyFrom,amount,currencyTo,callback) {
-    var options = 'exchangefee='+hasExchangeFee;
-      options += '&convertfrom='+currencyFrom;
-      options += '&amount='+amount;
-      options += '&convertto='+currencyTo;
-  
-    request(this.urlApi+options+'&json=true', function (error, response, json) {
-      if (!error && response.statusCode == 200) {
-        var myJson = JSON.parse(json);
-        callback(true,myJson);
-      } else {
-        callback(false,"");
-      }
+  async exchangeEstimate(hasExchangeFee,currencyFrom,amount,currencyTo) {
+    return await this.request({
+      exchangefee: hasExchangeFee,
+      convertfrom: currencyFrom,
+      amount: amount,
+      convertto: currencyTo
     });
   };
   
