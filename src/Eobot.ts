@@ -1,16 +1,45 @@
 import axios from 'axios';
+
+import requiredProps from './lib/requiredProps';
 import objectToUrlGet from './lib/objectToUrlGet';
 
-import { ParamsInterface } from './interfaces';
-
+import { ObjectAny, AccountInterface } from './interfaces';
 class Eobot {
-  urlApi: string;
+  public urlApi:string = 'https://www.eobot.com/api.aspx?';
 
-  constructor() {
-    this.urlApi = 'https://www.eobot.com/api.aspx?';
+  private account:AccountInterface = {
+    userId: 0,
+    email: '',
+    password: '',
+  };
+
+  constructor(userAccount?:AccountInterface) {
+    if (userAccount) {
+      this.setAccount(userAccount);
+    }
   }
 
-  async request(data:ParamsInterface) {
+  setAccount(userAccount:AccountInterface) {
+    if (userAccount.userId) {
+      this.account.userId = userAccount.userId;
+    }
+
+    const emailRE = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (userAccount.email) {
+      if (emailRE.test(userAccount.email)) {
+        this.account.email = userAccount.email;
+      } else {
+        console.error(`Invalid Email: "${userAccount.email}".`);
+      }
+    }
+
+    if (userAccount.password) {
+      this.account.password = userAccount.password;
+    }
+
+  }
+
+  async request(data:ObjectAny) {
     const stringData = objectToUrlGet(data);
     const requestUrl = this.urlApi + stringData;
 
@@ -18,85 +47,101 @@ class Eobot {
     .then(res => res.data);
   }
 
-  async getBalances(userId:number) {
+  async getBalances() {
+    requiredProps(this, ['userId']);
+
     return await this.request({
-      total: Math.round(userId),
+      total: this.account.userId,
     });
   }
 
-  async getMiningMode(userId:number) {
+  async getMiningMode() {
+    requiredProps(this, ['userId']);
+
     return await this.request({
-      idmining: userId,
+      idmining: this.account.userId,
     });
   }
 
-  async getSpeed(userId:number) {
+  async getSpeed() {
+    requiredProps(this, ['userId']);
+
     return await this.request({
-      idspeed: userId,
+      idspeed: this.account.userId,
     });
   }
 
-  async getDepositAddress(userId:number, depositType:string) {
+  async getDepositAddress(depositType:string) {
+    requiredProps(this, ['userId']);
+
     return await this.request({
-      id: userId,
+      id: this.account.userId,
       deposit: depositType,
     });
   }
 
-  async getUserID(email:string, password:string) {
+  async getUserID() {
+    requiredProps(this, ['email', 'password']);
+
     return await this.request({
-      email,
-      password,
+      email: this.account.email,
+      password: this.account.password,
     });
   }
 
-  async setMiningMode(userId:number, email:string, password:string, miningMode:string) {
+  async setMiningMode(miningMode:string) {
+    requiredProps(this, ['email', 'password', 'userId']);
+
     return await this.request({
-      email,
-      password,
-      id: userId,
+      email: this.account.email,
+      password: this.account.password,
+      id: this.account.userId,
       mining: miningMode,
     });
   }
 
-  async setAutomaticWithdraw(userId:number, email:string, password:string, currency:string, amount:number, walletAddress:string) {
+  async setAutomaticWithdraw(currency:string, amount:number, walletAddress:string) {
+    requiredProps(this, ['email', 'password', 'userId']);
+
     return await this.request({
       amount,
-      email,
-      password,
-      id: userId,
       withdraw: currency,
       wallet: walletAddress,
+      email: this.account.email,
+      password: this.account.password,
+      id: this.account.userId,
     });
   }
 
-  async manualWithdraw(userId:number, email:string, password:string, currency:string, amount:number, walletAddress:string) {
-    // manualwithdraw=BTC&amount=1&wallet=163fJyirjtxP585bukr73F1yDi2fYuCcDr
+  async manualWithdraw(currency:string, amount:number, walletAddress:string) {
+    requiredProps(this, ['email', 'password', 'userId']);
+
     return await this.request({
       amount,
-      email,
-      password,
-      id: userId,
       manualwithdraw: currency,
       wallet: walletAddress,
+      email: this.account.email,
+      password: this.account.password,
+      id: this.account.userId,
     });
   }
 
-  async buyCloudWithCryptocurrency(userId:number, email:string, password:string, currencyFrom:string, amount:number, cloudType:string) {
+  async buyCloudWithCryptocurrency(currencyFrom:string, amount:number, cloudType:string) {
+    requiredProps(this, ['email', 'password', 'userId']);
     return await this.request({
       amount,
-      email,
-      password,
-      id: userId,
       convertfrom: currencyFrom,
       convertto: cloudType,
+      email: this.account.email,
+      password: this.account.password,
+      id: this.account.userId,
     });
   }
 
-  async exchangeEstimate(hasExchangeFee:boolean, currencyFrom:string, amount:number, currencyTo:string) {
+  async exchangeEstimate(fee:boolean, currencyFrom:string, amount:number, currencyTo:string) {
     return await this.request({
       amount,
-      exchangefee: hasExchangeFee,
+      exchangefee: fee,
       convertfrom: currencyFrom,
       convertto: currencyTo,
     });

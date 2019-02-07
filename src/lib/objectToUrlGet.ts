@@ -1,9 +1,9 @@
-import { ParamsInterface } from '../interfaces';
+import { ObjectAny } from '../interfaces';
 
-const objectToUrlGet = (data:ParamsInterface) => {
+const objectToUrlGet = (data:ObjectAny) => {
   const arrayData:string[] = [];
 
-  const objectData:ParamsInterface = {
+  const objectData:ObjectAny = {
     ...{ json: true },
     ...data,
   };
