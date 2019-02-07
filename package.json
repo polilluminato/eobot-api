@@ -5,7 +5,8 @@
   "description": "Node.js Package for the Eobot API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "echo 'Start Lint' && tslint --project tsconfig.json --config tslint.json src/**/*.ts --fix && echo 'End Lint'",
+    "compile": "npm run lint; echo 'Start Compilation' && tsc --declaration && echo 'End Compilation'"
   },
   "keywords": [
     "eobot",
@@ -15,9 +16,11 @@
     "axios": "^0.18.0"
   },
   "devDependencies": {
+    "typescript": "^3.3.1",
     "@types/node": "^10.12.21",
     "@types/node-fetch": "^2.1.4",
-    "typescript": "^3.3.1"
+    "tslint": "^5.12.1",
+    "tslint-config-airbnb": "^5.11.1"
   },
   "license": "GPL-3.0",
   "maintainers": [

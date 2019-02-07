@@ -1,14 +1,14 @@
-import { ParamsInterface } from "../interfaces";
+import { ParamsInterface } from '../interfaces';
 
 const objectToUrlGet = (data:ParamsInterface) => {
   const arrayData:string[] = [];
 
   const objectData:ParamsInterface = {
     ...{ json: true },
-    ...data
+    ...data,
   };
 
-  for(let i in objectData) {
+  for (const i in objectData) {
     const strItemData = `${i}=${objectData[i]}`;
     arrayData.push(strItemData);
   }
@@ -16,6 +16,6 @@ const objectToUrlGet = (data:ParamsInterface) => {
   const stringData:string = arrayData.join('&');
 
   return stringData;
-}
+};
 
 export = objectToUrlGet;
