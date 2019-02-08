@@ -5,5 +5,5 @@ export interface ObjectAny {
 export interface AccountInterface {
   email?:string;
   password?:string;
-  userId?:number;
+  userid?:number;
 }

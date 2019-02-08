@@ -4,7 +4,7 @@ import axios from 'axios';
 // Send error if any prop is undefined
 import requiredProps from './lib/requiredProps';
 // Convert {foo: 'bar', what: 'ever'} to foo=bar&what=ever
-import objectToUrlGet from './lib/objectToUrlGet';
+import objectToQueryString from './lib/objectToQueryString';
 
 import { ObjectAny, AccountInterface } from './interfaces';
 class Eobot {
@@ -12,7 +12,7 @@ class Eobot {
   public urlApi:string = 'https://www.eobot.com/api.aspx?';
 
   private account:AccountInterface = {
-    userId: 0,
+    userid: 0,
     email: '',
     password: '',
   };
@@ -27,8 +27,8 @@ class Eobot {
 
   setAccount(userAccount:AccountInterface) {
     // Verify that the 'id' property exists
-    if (userAccount.userId) {
-      this.account.userId = userAccount.userId;
+    if (userAccount.userid) {
+      this.account.userid = +userAccount.userid;
     }
     // Verify that the 'email' property exists
     if (userAccount.email) {
@@ -50,8 +50,8 @@ class Eobot {
   }
 
   async request(data:ObjectAny) {
-    // Convert { userId: 123, email: 'foo@bar' } to 'userId=123&email=foo@bar'
-    const stringData = objectToUrlGet(data);
+    // Convert { userid: 123, email: 'foo@bar' } to 'userid=123&email=foo@bar'
+    const stringData = objectToQueryString(data);
     // Merge the api url with params
     const requestUrl = this.urlApi + stringData;
 
@@ -60,40 +60,40 @@ class Eobot {
   }
 
   async getBalances() {
-    requiredProps(this, ['userId']);
+    requiredProps(this.account, ['userid']);
 
     return await this.request({
-      total: this.account.userId,
+      total: this.account.userid,
     });
   }
 
   async getMiningMode() {
-    requiredProps(this, ['userId']);
+    requiredProps(this.account, ['userid']);
 
     return await this.request({
-      idmining: this.account.userId,
+      idmining: this.account.userid,
     });
   }
 
   async getSpeed() {
-    requiredProps(this, ['userId']);
+    requiredProps(this.account, ['userid']);
 
     return await this.request({
-      idspeed: this.account.userId,
+      idspeed: this.account.userid,
     });
   }
 
   async getDepositAddress(depositType:string) {
-    requiredProps(this, ['userId']);
+    requiredProps(this.account, ['userid']);
 
     return await this.request({
-      id: this.account.userId,
+      id: this.account.userid,
       deposit: depositType,
     });
   }
 
-  async getUserID() {
-    requiredProps(this, ['email', 'password']);
+  async getUserId() {
+    requiredProps(this.account, ['email', 'password']);
 
     return await this.request({
       email: this.account.email,
@@ -102,18 +102,18 @@ class Eobot {
   }
 
   async setMiningMode(miningMode:string) {
-    requiredProps(this, ['email', 'password', 'userId']);
+    requiredProps(this.account, ['email', 'password', 'userid']);
 
     return await this.request({
       mining: miningMode,
       email: this.account.email,
       password: this.account.password,
-      id: this.account.userId,
+      id: this.account.userid,
     });
   }
 
   async setAutomaticWithdraw(currency:string, amount:number, walletAddress:string) {
-    requiredProps(this, ['email', 'password', 'userId']);
+    requiredProps(this.account, ['email', 'password', 'userid']);
 
     return await this.request({
       amount,
@@ -121,12 +121,12 @@ class Eobot {
       wallet: walletAddress,
       email: this.account.email,
       password: this.account.password,
-      id: this.account.userId,
+      id: this.account.userid,
     });
   }
 
   async manualWithdraw(currency:string, amount:number, walletAddress:string) {
-    requiredProps(this, ['email', 'password', 'userId']);
+    requiredProps(this.account, ['email', 'password', 'userid']);
 
     return await this.request({
       amount,
@@ -134,19 +134,19 @@ class Eobot {
       wallet: walletAddress,
       email: this.account.email,
       password: this.account.password,
-      id: this.account.userId,
+      id: this.account.userid,
     });
   }
 
   async buyCloudWithCryptocurrency(currencyFrom:string, amount:number, cloudType:string) {
-    requiredProps(this, ['email', 'password', 'userId']);
+    requiredProps(this.account, ['email', 'password', 'userid']);
     return await this.request({
       amount,
       convertfrom: currencyFrom,
       convertto: cloudType,
       email: this.account.email,
       password: this.account.password,
-      id: this.account.userId,
+      id: this.account.userid,
     });
   }
 
