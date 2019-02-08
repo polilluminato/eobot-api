@@ -1,6 +1,6 @@
 {
   "name": "eobot-api",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Bonacina Alberto <bonacina.alberto@gmail.com>",
   "description": "Node.js Package for the Eobot API",
   "main": "index.js",
