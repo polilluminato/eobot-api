@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "echo 'Start Lint' && tslint --project tsconfig.json --config tslint.json src/**/*.ts --fix && echo 'End Lint'",
-    "compile": "npm run lint; echo 'Start Compilation' && tsc --declaration && echo 'End Compilation'"
+    "compile": "echo 'Start Compilation' && tsc --declaration && echo 'End Compilation'",
+    "build": "npm run lint; npm run compile"
   },
   "keywords": [
     "eobot",
