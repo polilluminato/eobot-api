@@ -1,1 +1,1 @@
-require('./dist/Eobot');
+module.exports = require('./dist/Eobot');
