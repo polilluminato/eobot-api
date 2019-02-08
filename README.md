@@ -32,7 +32,7 @@ Based on the example above, the response for the get balance is
   "Total": "0.15710920",
   "BTC": "0.00000044",
   "ETH": "0.00000000",
-  ...
+  "much-more-here": "true",
   "GHS": "0.00000000",
   "GHS2": "0.00000000",
   "SCRYPT": "0.00000000",
@@ -41,64 +41,80 @@ Based on the example above, the response for the get balance is
 }
 ```
 
+#### Set Account
+Set the account settings by passing the user, email and password (we do not recommend, but all are optional)
+```javascript
+const eobot = new EobotApi({
+  userid: 12345,
+  email: 'foo@bar',
+  password: 'thepassword'
+});
+
+// Change the userid
+eobot.setAccount({
+  userid: 54321
+});
+
+```
+
 #### Get Balances
 Returns total account value followed by cryptocurrency balances. Pass in querystring UserID.
 ```javascript
-eobot.getBalances();
+eobot.getBalances()
 ```
 
 #### Get Mining Mode
 Returns the cryptocurrency you are currently mining. Pass in querystring UserID.
 ```javascript
-eobot.getMiningMode();
+eobot.getMiningMode()
 ```
 
 #### Get Speed
 Returns the mining and cloud speeds. Pass in querystring UserID.
 ```javascript
-eobot.getSpeed();
+eobot.getSpeed()
 ```
 
 #### Get Deposit Address
 Returns a deposit wallet address for specified cryptocurrency. Pass in querystring UserID and deposit type (BTC, ETH, LTC, etc.).
 ```javascript
-eobot.getDepositAddress(depositType);
+eobot.getDepositAddress(depositType)
 ```
 
 #### Get UserID
 Returns the UserID. Pass in querystring (or post parameters) email and password/API Key.
 ```javascript
-eobot.getUserID();
+eobot.getUserID()
 ```
 
 #### Set Mining Mode
 Programmatically set your mining mode. Pass in querystring (or post parameters) UserID, email, password/API Key, and mining mode (BTC, ETH, LTC, etc.).
 ```javascript
-eobot.setMiningMode(miningMode);
+eobot.setMiningMode(miningMode)
 ```
 
 #### Set Automatic Withdraw
 Programmatically set an automatic withdraw. Pass in querystring (or post parameters) UserID, email, password/API Key, automatic withdraw type (BTC, ETH, LTC, etc.), amount, and wallet address.
 ```javascript
-eobot.setAutomaticWithdraw(currency, amount, walletAddress);
+eobot.setAutomaticWithdraw(currency, amount, walletAddress)
 ```
 
 #### Manual Withdraw
 Performs a one-time manual withdraw. Pass in querystring (or post parameters) UserID, email, password/API Key, manual withdraw type (BTC, ETH, LTC, etc.), amount, and wallet address.
 ```javascript
-eobot.manualWithdraw(currency, amount, walletAddress);
+eobot.manualWithdraw(currency, amount, walletAddress)
 ```
 
 #### Buy Cloud with Cryptocurrency
 Programmatically buy Cloud. Pass in querystring (or post parameters) UserID, email, password/API Key, cloud type (GHS or GHS4 or SCRYPT), cryptocurrency source (BTC, ETH, LTC, etc.), and cryptocurrency amount.
 ```javascript
-eobot.buyCloudWithCryptocurrency(currencyFrom, amount, cloudType);
+eobot.buyCloudWithCryptocurrency(currencyFrom, amount, cloudType)
 ```
 
 #### Exchange Estimate
 Programmatically get estimate. Pass in querystring from coin type, to coin type, and cryptocurrency amount.
 ```javascript
-eobot.exchangeEstimate(hasExchangeFee, currencyFrom, amount, currencyTo);
+eobot.exchangeEstimate(hasExchangeFee, currencyFrom, amount, currencyTo)
 ```
 
 ### Disclaimer
