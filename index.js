@@ -13,13 +13,18 @@ function makeRequest(url,callback){
   });
 }
 
+/*****************/
+
 exports.getBalances = function(userId,callback){
   
   let urlToCall = urlApi+'total='+userId+format;
   makeRequest(urlToCall,function(result,response){
     callback(result,response);
   });
+
 };
+
+/*****************/
 
 exports.getMiningMode = function(userId,callback){
   
@@ -27,7 +32,10 @@ exports.getMiningMode = function(userId,callback){
   makeRequest(urlToCall,function(result,response){
     callback(result,response);
   });
+
 };
+
+/*****************/
 
 exports.getSpeed = function(userId,callback){
   
@@ -35,7 +43,10 @@ exports.getSpeed = function(userId,callback){
   makeRequest(urlToCall,function(result,response){
     callback(result,response);
   });
+
 };
+
+/*****************/
 
 exports.getDepositAddress = function(userId,depositType,callback){
   
@@ -43,7 +54,10 @@ exports.getDepositAddress = function(userId,depositType,callback){
   makeRequest(urlToCall,function(result,response){
     callback(result,response);
   });
+
 };
+
+/*****************/
 
 exports.getUserID = function(email,password,callback){
 
@@ -51,7 +65,10 @@ exports.getUserID = function(email,password,callback){
   makeRequest(urlToCall,function(result,response){
     callback(result,response);
   });
+
 };
+
+/*****************/
 
 exports.setMiningMode = function(userId,email,password,miningMode,callback){
   
@@ -59,12 +76,15 @@ exports.setMiningMode = function(userId,email,password,miningMode,callback){
                 +'&email='+email
                 +'&password='+password
                 +'&mining='+miningMode;
-
   let urlToCall = urlApi+options+format;
+
   makeRequest(urlToCall,function(result,response){
     callback(result,response);
   });
+
 };
+
+/*****************/
 
 exports.setAutomaticWithdraw = function(myUserID,myEmail,myPassword,currency,amount,walletAddress,callback){
   
@@ -74,12 +94,15 @@ exports.setAutomaticWithdraw = function(myUserID,myEmail,myPassword,currency,amo
                  +'&withdraw='+currency
                  +'&amount='+amount
                  +'&wallet='+walletAddress;
-
   let urlToCall = urlApi+options+format;
+
   makeRequest(urlToCall,function(result,response){
     callback(result,response);
   });
+  
 };
+
+/*****************/
 
 exports.manualWithdraw = function(myUserID,myEmail,myPassword,currency,amount,walletAddress,callback){
   
@@ -89,12 +112,15 @@ exports.manualWithdraw = function(myUserID,myEmail,myPassword,currency,amount,wa
                   +'&manualwithdraw='+currency
                   +'&amount='+amount
                   +'&wallet='+walletAddress;
-
   let urlToCall = urlApi+options+format;
+
   makeRequest(urlToCall,function(result,response){
     callback(result,response);
   });
+
 };
+
+/*****************/
 
 exports.buyCloudWithCryptocurrency = function(myUserID,myEmail,myPassword,currencyFrom,amount,cloudType,callback){
   
@@ -104,12 +130,15 @@ exports.buyCloudWithCryptocurrency = function(myUserID,myEmail,myPassword,curren
                   +'&convertfrom='+currencyFrom
                   +'&amount='+amount
                   +'&convertto='+cloudType;
-
   let urlToCall = urlApi+options+format;
+
   makeRequest(urlToCall,function(result,response){
     callback(result,response);
   });
+
 };
+
+/*****************/
 
 exports.exchangeEstimate = function(hasExchangeFee,currencyFrom,amount,currencyTo,callback){
   
@@ -117,9 +146,10 @@ exports.exchangeEstimate = function(hasExchangeFee,currencyFrom,amount,currencyT
                   +'&convertfrom='+currencyFrom
                   +'&amount='+amount
                   +'&convertto='+currencyTo;
-
   let urlToCall = urlApi+options+format;
+
   makeRequest(urlToCall,function(result,response){
     callback(result,response);
   });
+
 };
