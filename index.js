@@ -1,142 +1,125 @@
-var request = require('request');
-var urlApi = 'https://www.eobot.com/api.aspx?';
+const request = require('request');
+const urlApi = 'https://www.eobot.com/api.aspx?';
+const format = '&json=true';
 
-exports.getBalances = function(userId,callback){
-  request(urlApi+'total='+userId+'&json=true', function (error, response, json) {
+function makeRequest(url,callback){
+  request(url,function(error,response,json){
     if (!error && response.statusCode == 200) {
       var myJson = JSON.parse(json);
-      callback(true,myJson);
+      return callback(true,myJson);
     } else {
-      callback(false,"");
+      return callback(false,"");
     }
+  });
+}
+
+exports.getBalances = function(userId,callback){
+  
+  let urlToCall = urlApi+'total='+userId+format;
+  makeRequest(urlToCall,function(result,response){
+    callback(result,response);
   });
 };
 
 exports.getMiningMode = function(userId,callback){
-  request(urlApi+'idmining='+userId+'&json=true', function (error, response, json) {
-    if (!error && response.statusCode == 200) {
-      var myJson = JSON.parse(json);
-      callback(true,myJson);
-    } else {
-      callback(false,"");
-    }
+  
+  let urlToCall = urlApi+'idmining='+userId+format;
+  makeRequest(urlToCall,function(result,response){
+    callback(result,response);
   });
 };
 
 exports.getSpeed = function(userId,callback){
-  request(urlApi+'idspeed='+userId+'&json=true', function (error, response, json) {
-    if (!error && response.statusCode == 200) {
-      var myJson = JSON.parse(json);
-      callback(true,myJson);
-    } else {
-      callback(false,"");
-    }
+  
+  let urlToCall = urlApi+'idspeed='+userId+format;
+  makeRequest(urlToCall,function(result,response){
+    callback(result,response);
   });
 };
 
 exports.getDepositAddress = function(userId,depositType,callback){
-  request(urlApi+'id='+userId+'&deposit='+depositType+'&json=true', function (error, response, json) {
-    if (!error && response.statusCode == 200) {
-      var myJson = JSON.parse(json);
-      callback(true,myJson);
-    } else {
-      callback(false,"");
-    }
+  
+  let urlToCall = urlApi+'id='+userId+'&deposit='+depositType+format;
+  makeRequest(urlToCall,function(result,response){
+    callback(result,response);
   });
 };
 
 exports.getUserID = function(email,password,callback){
-  request(urlApi+'email='+email+'&password='+password+'&json=true', function (error, response, json) {
-    if (!error && response.statusCode == 200) {
-      var myJson = JSON.parse(json);
-      callback(true,myJson);
-    } else {
-      callback(false,"");
-    }
+
+  let urlToCall = urlApi+'email='+email+'&password='+password+format;
+  makeRequest(urlToCall,function(result,response){
+    callback(result,response);
   });
 };
 
 exports.setMiningMode = function(userId,email,password,miningMode,callback){
-  var options = 'id='+userId;
-    options += '&email='+email;
-    options += '&password='+password;
-    options += '&mining='+miningMode;
+  
+  var options = 'id='+userId
+                +'&email='+email
+                +'&password='+password
+                +'&mining='+miningMode;
 
-  request(urlApi+options+'&json=true', function (error, response, json) {
-    if (!error && response.statusCode == 200) {
-      callback(true);
-    } else {
-      callback(false);
-    }
+  let urlToCall = urlApi+options+format;
+  makeRequest(urlToCall,function(result,response){
+    callback(result,response);
   });
 };
 
 exports.setAutomaticWithdraw = function(myUserID,myEmail,myPassword,currency,amount,walletAddress,callback){
-  var options = 'id='+myUserID;
-    options += '&email='+myEmail;
-    options += '&password='+myPassword;
-    options += '&withdraw='+currency;
-    options += '&amount='+amount;
-    options += '&wallet='+walletAddress;
+  
+  var options = 'id='+myUserID
+                 +'&email='+myEmail
+                 +'&password='+myPassword
+                 +'&withdraw='+currency
+                 +'&amount='+amount
+                 +'&wallet='+walletAddress;
 
-  request(urlApi+options+'&json=true', function (error, response, json) {
-    if (!error && response.statusCode == 200) {
-      var myJson = JSON.parse(json);
-      callback(true,myJson);
-    } else {
-      callback(false,"");
-    }
+  let urlToCall = urlApi+options+format;
+  makeRequest(urlToCall,function(result,response){
+    callback(result,response);
   });
 };
 
 exports.manualWithdraw = function(myUserID,myEmail,myPassword,currency,amount,walletAddress,callback){
-  var options = 'id='+myUserID;
-    options += '&email='+myEmail;
-    options += '&password='+myPassword;
-    options += '&manualwithdraw='+currency;
-    options += '&amount='+amount;
-    options += '&wallet='+walletAddress;
+  
+  var options = 'id='+myUserID
+                  +'&email='+myEmail
+                  +'&password='+myPassword
+                  +'&manualwithdraw='+currency
+                  +'&amount='+amount
+                  +'&wallet='+walletAddress;
 
-  request(urlApi+options+'&json=true', function (error, response, json) {
-    if (!error && response.statusCode == 200) {
-      var myJson = JSON.parse(json);
-      callback(true,myJson);
-    } else {
-      callback(false,"");
-    }
+  let urlToCall = urlApi+options+format;
+  makeRequest(urlToCall,function(result,response){
+    callback(result,response);
   });
 };
 
 exports.buyCloudWithCryptocurrency = function(myUserID,myEmail,myPassword,currencyFrom,amount,cloudType,callback){
-  var options = 'id='+myUserID;
-    options += '&email='+myEmail;
-    options += '&password='+myPassword;
-    options += '&convertfrom='+currencyFrom;
-    options += '&amount='+amount;
-    options += '&convertto='+cloudType;
+  
+  var options = 'id='+myUserID
+                  +'&email='+myEmail
+                  +'&password='+myPassword
+                  +'&convertfrom='+currencyFrom
+                  +'&amount='+amount
+                  +'&convertto='+cloudType;
 
-  request(urlApi+options+'&json=true', function (error, response, json) {
-    if (!error && response.statusCode == 200) {
-      var myJson = JSON.parse(json);
-      callback(true,myJson);
-    } else {
-      callback(false,"");
-    }
+  let urlToCall = urlApi+options+format;
+  makeRequest(urlToCall,function(result,response){
+    callback(result,response);
   });
 };
 
 exports.exchangeEstimate = function(hasExchangeFee,currencyFrom,amount,currencyTo,callback){
-  var options = 'exchangefee='+hasExchangeFee;
-    options += '&convertfrom='+currencyFrom;
-    options += '&amount='+amount;
-    options += '&convertto='+currencyTo;
+  
+  var options = 'exchangefee='+hasExchangeFee
+                  +'&convertfrom='+currencyFrom
+                  +'&amount='+amount
+                  +'&convertto='+currencyTo;
 
-  request(urlApi+options+'&json=true', function (error, response, json) {
-    if (!error && response.statusCode == 200) {
-      var myJson = JSON.parse(json);
-      callback(true,myJson);
-    } else {
-      callback(false,"");
-    }
+  let urlToCall = urlApi+options+format;
+  makeRequest(urlToCall,function(result,response){
+    callback(result,response);
   });
 };
