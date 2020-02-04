@@ -109,16 +109,16 @@ exports.exchangeEstimate = function(hasExchangeFee,currencyFrom,amount,currencyT
 ## Disclaimer
 I'm **not** associated or **related** with Eobot.com, this is my implementation based on the public API. I'm **not** responsible if **you** lose money using this library because this is a simple node.js wrapper for the Eobot.com Public API.
 
-## Donations
+## Donate
 
 If you think that code is worth of some money and are willing to pay for it, feel free to send any amount through PayPal, Bitcoin, Ethereum, Litecoin and BAT.
 
-| Service  | Link                                       |
+| Mode  | Link/Wallet                                       |
 |----------|--------------------------------------------|
 | Paypal   | [PayPal.Me](https://paypal.me/polilluminato)            |
-| Bitcoin  | 3Pm9jw4E7t5jd3nhWp8ZAohMsSBdxdXuNY         |
-| Ethereum | 0xdf65F5beBAa9c0d3F979fA8935671d7dCD1Ae363 |
-| Litecoin | MNdUw3w7Vn3fwx2dJEdxQ7Rw4jzSVjAohh         |
+| Bitcoin  | 168fmE7d1RY8S6fJSkffnVFdZTwnxRAM7y         |
+| Ethereum | 0xCa080c321e9518437F78CaC4099Fb938c7e2Ffee |
+| Litecoin | LQmw4mGo7hgv1ctvGgHbjXudU9ejmK95NH         |
 | BAT      | 0xbbF164847aAc7E226e4EC0195fF734AD314C9422 |
 
 ## Contributing
